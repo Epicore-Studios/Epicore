@@ -16,7 +16,8 @@ export interface CardInfoInterface {
 
 export interface CardUniquesInterface {
     Opener: string,
-    BorderID: number
+    BorderID: number,
+    UnusedTokens: number
 }
 
 export interface CardStatsInterface {
