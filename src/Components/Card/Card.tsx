@@ -5,7 +5,7 @@ interface CardProps {
   Card : CardInterface
 }
 
-export function Card( { Card } : CardProps) {
+export function Card( { } : CardProps) {
   
   return (
     <>
