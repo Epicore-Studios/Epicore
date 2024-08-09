@@ -3,7 +3,7 @@ name: Auto PR on Push
 on:
   push:
     branches-ignore:
-      - main  # Ignora los push en la rama `main`
+      - main 
 
 jobs:
   create_pull_request:
