@@ -21,7 +21,8 @@ jobs:
     - name: Read PR template
       id: read_pr_template
       run: |
-        echo "::set-output name=pr_body::$(cat .github/PULL_REQUEST_TEMPLATE.md | sed 's/%/%25/g' | sed 's/\r/%0D/g' | sed 's/\n/%0A/g')"
+        PR_BODY=$(< .github/PULL_REQUEST_TEMPLATE.md)
+        echo "::set-output name=pr_body::$PR_BODY"
 
     - name: Create Pull Request
       id: create_pr
