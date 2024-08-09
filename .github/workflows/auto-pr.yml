@@ -18,13 +18,19 @@ jobs:
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
 
+    - name: Read PR template
+      id: read_pr_template
+      run: |
+        body=$(cat .github/PULL_REQUEST_TEMPLATE.md)
+        echo "::set-output name=pr_body::$body"
+
     - name: Create Pull Request
       id: create_pr
       uses: peter-evans/create-pull-request@v5
       with:
         base: main  # Rama base a la que se va a hacer el merge
         title: 'Auto PR: Update from push'
-        body: 'This PR was automatically created from a push.'
+        body: ${{ steps.read_pr_template.outputs.pr_body }}
         reviewers: ${{ github.actor }}
         branch: ${{ github.ref_name }}  # Usa la rama actual
 
