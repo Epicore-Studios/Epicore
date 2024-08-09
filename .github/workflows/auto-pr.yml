@@ -20,7 +20,11 @@ jobs:
 
     - name: Read PR template
       id: read_pr_template
-      run: echo "pr_body=$(< .github/PULL_REQUEST_TEMPLATE.md)" >> $GITHUB_ENV
+      run: |
+        PR_BODY=$(cat .github/PULL_REQUEST_TEMPLATE.md)
+        echo "pr_body<<EOF" >> $GITHUB_ENV
+        echo "$PR_BODY" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
 
     - name: Create Pull Request
       id: create_pr
