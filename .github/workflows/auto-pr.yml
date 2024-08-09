@@ -18,19 +18,39 @@ jobs:
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
 
-    - name: Read PR template
-      id: read_pr_template
-      run: |
-        PR_BODY=$(< .github/PULL_REQUEST_TEMPLATE.md)
-        echo "::set-output name=pr_body::$PR_BODY"
-
     - name: Create Pull Request
       id: create_pr
       uses: peter-evans/create-pull-request@v5
       with:
         base: main  # Base branch to merge into
         title: 'Auto PR: Update from push'
-        body: ${{ steps.read_pr_template.outputs.pr_body }}
+        body: |
+          ## Description
+          <!-- Describe the changes you are proposing in this pull request -->
+
+          ## Type of change
+          - [ ] Bugfix
+          - [ ] New feature
+          - [ ] Refactoring
+          - [ ] Documentation
+          - [ ] Build
+
+          ## PR Checklist:
+          - [ ] I have performed a self-review of my code before creating the pull request.
+          - [ ] I have documented the changes made in this pull request.
+          - [ ] All new and existing tests pass locally.
+
+          ## Does this PR introduce a breaking change?
+          - [ ] Yes
+          - [ ] No
+
+          ## Additional notes
+          <!-- Add any additional notes that are relevant for the review of this pull request -->
+
+          ## How has this been tested?
+          - [ ] Created TDD
+          - [ ] Created BDD
+          - [ ] Tested Manually
         reviewers: ${{ github.actor }}
         branch: ${{ github.ref_name }}  # Use the current branch
 
