@@ -13,6 +13,20 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'  # Asegúrate de que coincide con la versión de Node.js que estás utilizando
+
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Run tests
+      run: yarn test --ci --watchAll=false
+
+    - name: Lint code
+      run: yarn lint
+
     - name: Setup Git
       run: |
         git config user.name "github-actions"
