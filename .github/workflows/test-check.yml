@@ -1,0 +1,23 @@
+name: Test Check
+
+on:
+  pull_request:  # Este evento asegura que el check se ejecuta en las PRs
+
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run tests
+        run: yarn test --ci --watchAll=false
