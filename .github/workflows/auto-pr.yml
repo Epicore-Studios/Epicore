@@ -21,10 +21,7 @@ jobs:
     - name: Read PR template
       id: read_pr_template
       run: |
-        PR_BODY=$(cat .github/PULL_REQUEST_TEMPLATE.md)
-        echo "pr_body<<EOF" >> $GITHUB_ENV
-        echo "$PR_BODY" >> $GITHUB_ENV
-        echo "EOF" >> $GITHUB_ENV
+        echo "::set-output name=pr_body::$(cat .github/PULL_REQUEST_TEMPLATE.md | sed 's/%/%25/g' | sed 's/\r/%0D/g' | sed 's/\n/%0A/g')"
 
     - name: Create Pull Request
       id: create_pr
@@ -32,7 +29,7 @@ jobs:
       with:
         base: main  # Base branch to merge into
         title: 'Auto PR: Update from push'
-        body: ${{ env.pr_body }}
+        body: ${{ steps.read_pr_template.outputs.pr_body }}
         reviewers: ${{ github.actor }}
         branch: ${{ github.ref_name }}  # Use the current branch
 
